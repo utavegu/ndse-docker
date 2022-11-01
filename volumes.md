@@ -4,20 +4,17 @@
 
 2) Запустите контейнер с именем first_node из образа node версии 15.14 в фоновом режиме, подключив папку data из текущей директории в /var/first/data контейнера
 
-*Не знал как сделать, чтобы контейнер после создания сразу не останавливался, потому пришлось использовать такой вот фокус с пингом - в незапущенный контейнер через exec не попасть*
-
 ```
 mkdir -p data
-docker run --name first_node -d -v "$(pwd)/data:/var/first/data" node:15.14 ping -i 60 ya.ru
+docker run --name first_node -d -t -v "$(pwd)/data:/var/first/data" node:15.14
 ```
-
 
 *Кстати, сейчас если контейнеру докера не задавать имя, он задаст ему его сам в духе именования версий Убунты*
 
 3) Запустите контейнер с именем second_node из образа node версии 15.14 в фоновом режиме, подключив папку data из текущей директории в /var/second/data контейнера
 
 ```
-docker run --name second_node -d -v "$(pwd)/data:/var/second/data" node:15.14 ping -i 60 ya.ru
+docker run --name second_node -d -t -v "$(pwd)/data:/var/second/data" node:15.14
 ```
 
 4) Подключитесь к контейнеру first_node с помощью exec и создайте текстовый файл любого содержания в /var/first/data
